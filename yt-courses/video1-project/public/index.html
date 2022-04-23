@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <h1>User data</h1>
+    </head>
+
+    <body>
+        <form method="post" action="/api/user">
+            <input name="first" placeholder="First Name" type="text" required/>
+            <input name="last" placeholder="Last Name" type="text" required/>
+            <input name="age" placeholder="Age" type="number" required min="0" max="130"/>
+
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>
