@@ -1,18 +1,40 @@
-import chalk from 'chalk';
-import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
-import getNotes from './notes.js';
+import chalk from "chalk";
+import getNotes from "./notes.js";
+import yargs from "yargs";
+import { hideBin } from "yargs/helpers";
 
-const yarg = yargs(hideBin(process.argv));
-
-// Customize yargs version
-yarg.version = '1.1.0';
-
-//Create add command
-yarg.command({
-    command: 'add',
-    describe: 'Add a new note',
-    handler: function () {
-        console.log('Adding a new note!');
+yargs(hideBin(process.argv))
+  .command(
+    "remove",
+    "Remove a note",
+    () => {},
+    (argv) => {
+      console.log("Removing a new note!");
     }
-});
+  )
+  .command(
+    "add",
+    "Add a note",
+    () => {},
+    (argv) => {
+      console.log("Adding a new note!");
+    }
+  )
+  .command(
+    "list",
+    "List your notes",
+    () => {},
+    (argv) => {
+      console.log("Listing out all notes!");
+    }
+  )
+  .command(
+    "read",
+    "Read a note",
+    () => {},
+    (argv) => {
+      console.log("Reading a note!");
+    }
+  )
+  .demandCommand(1)
+  .parse();
