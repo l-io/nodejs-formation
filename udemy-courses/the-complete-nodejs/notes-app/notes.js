@@ -1,5 +1,53 @@
- const getNotes = function () {
-    return 'My notes';
- };
+import fs from "fs";
+import chalk from "chalk";
 
- export default getNotes;
+const getNotes = () => "Your notes...";
+
+const addNote = (title, body) => {
+  const notes = loadNotes();
+
+  const duplicateNotes = notes.filter((note) => note.title === title);
+
+  if (duplicateNotes.length === 0) {
+    notes.push({
+      title: title,
+      body: body,
+    });
+    console.log("New note added!");
+  } else {
+    console.log("Note title taken!");
+  }
+
+  saveNotes(notes);
+};
+
+const removeNote = (title) => {
+  const notes = loadNotes();
+
+  const notesToKeep = notes.filter((note) => note.title !== title);
+
+  if (notes.length > notesToKeep.length) {
+    console.log(chalk.green.inverse("Note removed!"));
+    saveNotes(notesToKeep);
+  } else {
+    console.log(chalk.red.inverse("No note found!"));
+  }
+};
+
+const saveNotes = (notes) => {
+  const dataJSON = JSON.stringify(notes);
+  fs.writeFileSync("notes.json", dataJSON);
+};
+
+const loadNotes = () => {
+  try {
+    const dataBuffer = fs.readFileSync("notes.json");
+    const dataJSON = dataBuffer.toString();
+
+    return JSON.parse(dataJSON);
+  } catch (e) {
+    return [];
+  }
+};
+
+export { getNotes, addNote, removeNote };
